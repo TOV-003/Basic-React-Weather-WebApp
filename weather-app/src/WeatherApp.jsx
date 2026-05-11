@@ -19,6 +19,7 @@ const WeatherApp = () => {
   const calculateFahrenheitAndKelvin = (tempCelsius) => {
     const fah = (tempCelsius * 9) / 5 + 32;
     const kel = tempCelsius + 273.15;
+
     return { fah, kel };
   };
 
@@ -35,6 +36,7 @@ const WeatherApp = () => {
       }
 
       const data = await response.json();
+
       const { fah, kel } = calculateFahrenheitAndKelvin(
         data.current.temp_c
       );
@@ -89,16 +91,19 @@ const WeatherApp = () => {
   const getUnitSymbol = () => {
     if (unit === 'Celsius') return '°C';
     if (unit === 'Fahrenheit') return '°F';
+
     return 'K';
   };
 
   return (
-    <div className="min-h-screen bg-[#1B1D23] text-[#E8EAF0] flex flex-col items-center px-6 py-10">
-      <div className="w-full max-w-3xl flex items-center gap-4 bg-[#252932] border border-[#343944] rounded-2xl px-5 py-4 shadow-lg">
+    <div className="min-h-screen bg-[#1B1D23] text-[#E8EAF0] flex flex-col items-center px-4 sm:px-6 py-6 sm:py-10">
+
+      {/* Search */}
+      <div className="w-full max-w-3xl flex items-center gap-3 sm:gap-4 bg-[#252932] border border-[#343944] rounded-2xl px-4 sm:px-5 py-3 sm:py-4 shadow-lg">
         <input
           type="text"
           placeholder="Search city..."
-          className="bg-transparent outline-none w-full text-2xl text-[#F5F7FA] placeholder:text-[#7B8190]"
+          className="bg-transparent outline-none w-full text-lg sm:text-xl md:text-2xl text-[#F5F7FA] placeholder:text-[#7B8190]"
           value={newCity}
           onChange={(e) => setNewCity(e.target.value)}
           onKeyDown={handleKeyDown}
@@ -106,33 +111,34 @@ const WeatherApp = () => {
 
         <button
           onClick={handleSearch}
-          className="bg-[#3B82F6] hover:bg-[#2563EB] transition-colors px-4 py-3 rounded-xl"
+          className="bg-[#3B82F6] hover:bg-[#2563EB] transition-colors p-3 rounded-xl shrink-0"
         >
           <img
             src="/src/assets/search.svg"
             alt="search"
-            className="w-6"
+            className="w-5 sm:w-6"
           />
         </button>
       </div>
 
       {/* Main Card */}
-      <div className="mt-10 w-full max-w-4xl bg-[#252932] border border-[#343944] rounded-3xl p-10 shadow-2xl flex flex-col items-center gap-8">
+      <div className="mt-6 sm:mt-10 w-full max-w-5xl bg-[#252932] border border-[#343944] rounded-3xl p-5 sm:p-8 lg:p-10 shadow-2xl flex flex-col items-center gap-6 sm:gap-8">
 
         {/* Temperature */}
-        <div className="text-center">
-          <p className="text-[180px] md:text-[240px] sm:text-lg font-bold leading-none tracking-tight">
+        <div className="text-center w-full">
+          <p className="text-6xl sm:text-8xl md:text-[10rem] lg:text-[15rem] font-bold leading-none tracking-tight break-words">
             {getDisplayTemp()}
             <span className="font-light text-[#8D93A1]">
               {getUnitSymbol()}
             </span>
           </p>
-          <div className="flex gap-3 justify-center mt-4">
+
+          <div className="flex flex-wrap gap-3 justify-center mt-4">
             {['Celsius', 'Fahrenheit', 'Kelvin'].map((tempUnit) => (
               <button
                 key={tempUnit}
                 onClick={() => setUnit(tempUnit)}
-                className={`px-5 py-2 rounded-xl border transition-all duration-200 ${
+                className={`px-4 sm:px-5 py-2 rounded-xl border text-sm sm:text-base transition-all duration-200 ${
                   unit === tempUnit
                     ? 'bg-[#3B82F6] border-[#3B82F6] text-white'
                     : 'bg-[#1E222B] border-[#343944] text-[#AAB1BF] hover:bg-[#2B313D]'
@@ -146,59 +152,69 @@ const WeatherApp = () => {
 
         {/* City */}
         <div className="text-center">
-          <p className="text-6xl font-semibold tracking-tight">
+          <p className="text-3xl sm:text-5xl md:text-6xl font-semibold tracking-tight break-words">
             {city}
           </p>
-          <p className="text-[#7B8190] mt-2">
+
+          <p className="text-sm sm:text-base text-[#7B8190] mt-2">
             Current Weather Conditions
           </p>
         </div>
+
         <div className="w-full h-px bg-[#343944]" />
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
-          
-          <div className="bg-[#1E222B] border border-[#343944] rounded-2xl p-6">
-            <p className="text-[#7B8190] text-sm uppercase tracking-widest">
+
+        {/* Weather Stats */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 w-full">
+
+          <div className="bg-[#1E222B] border border-[#343944] rounded-2xl p-5 sm:p-6">
+            <p className="text-[#7B8190] text-xs sm:text-sm uppercase tracking-widest">
               Humidity
             </p>
-            <h2 className="text-4xl font-bold mt-2">
+
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mt-2">
               {weatherData.humidity}%
             </h2>
           </div>
 
-          <div className="bg-[#1E222B] border border-[#343944] rounded-2xl p-6">
-            <p className="text-[#7B8190] text-sm uppercase tracking-widest">
+          <div className="bg-[#1E222B] border border-[#343944] rounded-2xl p-5 sm:p-6">
+            <p className="text-[#7B8190] text-xs sm:text-sm uppercase tracking-widest">
               Pressure
             </p>
-            <h2 className="text-4xl font-bold mt-2">
+
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mt-2">
               {weatherData.pressure} mb
             </h2>
           </div>
 
-          <div className="bg-[#1E222B] border border-[#343944] rounded-2xl p-6">
-            <p className="text-[#7B8190] text-sm uppercase tracking-widest">
+          <div className="bg-[#1E222B] border border-[#343944] rounded-2xl p-5 sm:p-6">
+            <p className="text-[#7B8190] text-xs sm:text-sm uppercase tracking-widest">
               Visibility
             </p>
-            <h2 className="text-4xl font-bold mt-2">
+
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mt-2">
               {weatherData.visibility} km
             </h2>
           </div>
 
-          <div className="bg-[#1E222B] border border-[#343944] rounded-2xl p-6">
-            <p className="text-[#7B8190] text-sm uppercase tracking-widest">
+          <div className="bg-[#1E222B] border border-[#343944] rounded-2xl p-5 sm:p-6">
+            <p className="text-[#7B8190] text-xs sm:text-sm uppercase tracking-widest">
               Wind Speed
             </p>
-            <h2 className="text-4xl font-bold mt-2">
+
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mt-2">
               {weatherData.windSpeed} km/h
             </h2>
           </div>
         </div>
       </div>
-      <div className="mt-10 text-center text-[#7B8190] text-sm space-y-2">
-        <h1 className="text-lg text-[#D7DBE5]">
+
+      {/* Footer */}
+      <div className="mt-8 sm:mt-10 text-center text-[#7B8190] text-sm space-y-2 px-4">
+        <h1 className="text-base sm:text-lg text-[#D7DBE5]">
           Weather dashboard built with React and WeatherAPI
         </h1>
 
-        <p>
+        <p className="break-words">
           Weather data provided by{' '}
           <a
             href="https://www.weatherapi.com/"
