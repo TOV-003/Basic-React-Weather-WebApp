@@ -114,7 +114,7 @@ const WeatherApp = () => {
           className="bg-[#3B82F6] hover:bg-[#2563EB] transition-colors p-3 rounded-xl shrink-0"
         >
           <img
-            src="/src/assets/search.svg"
+            src="/search.svg"
             alt="search"
             className="w-5 sm:w-6"
           />
