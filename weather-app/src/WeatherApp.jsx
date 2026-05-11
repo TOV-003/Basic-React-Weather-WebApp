@@ -121,7 +121,7 @@ const WeatherApp = () => {
 
         {/* Temperature */}
         <div className="text-center">
-          <p className="text-[180px] md:text-[240px] font-bold leading-none tracking-tight">
+          <p className="text-[180px] md:text-[240px] sm:text-lg font-bold leading-none tracking-tight">
             {getDisplayTemp()}
             <span className="font-light text-[#8D93A1]">
               {getUnitSymbol()}
